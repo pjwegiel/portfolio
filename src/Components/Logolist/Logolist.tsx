@@ -6,6 +6,8 @@ import TypescriptLogo from '../../Assets/Logos/typescript.png'
 import HTMLLogo from '../../Assets/Logos/html.png'
 import CSSLLogo from '../../Assets/Logos/css.png'
 
+import { LogoListItem } from '../LogoListItem/LogoListItem'
+
 type Logo = {
     name: string
     img: string
@@ -41,10 +43,12 @@ export const Logolist = function Logolist(): JSX.Element {
     }, [])
     return (
         <div className="logolistWrapper">
-            {logos.map((value) => (
-                <a href={value.link} target="_blank" rel="noreferrer">
-                    <img src={value.img} alt={value.name} />
-                </a>
+            {logos.map((logo) => (
+                <LogoListItem
+                    name={logo.name}
+                    img={logo.img}
+                    link={logo.link}
+                />
             ))}
         </div>
     )
