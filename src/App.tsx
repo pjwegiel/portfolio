@@ -1,6 +1,7 @@
 import './App.css'
 
 import { Logolist } from './Components/Logolist/Logolist'
+import { ContactForm } from './Components/ContactForm/ContactForm'
 
 const App = function App(): JSX.Element {
     return (
@@ -62,7 +63,8 @@ const App = function App(): JSX.Element {
                         />
                     </svg>
                 </div>
-                <h2>Technologie z którymi miałem styczność: </h2>
+                <h2>Skontaktuj się ze mną!</h2>
+                <ContactForm />
             </footer>
         </div>
     )
