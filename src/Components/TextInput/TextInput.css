@@ -1,34 +1,20 @@
 .input-wrapper {
-    position: relative;
+    height: auto;
 }
 
-input {
-    width: 100%;
-    border: 0;
-    border-bottom: 2px solid gray;
-    outline: 0;
-    font-size: 1.3rem;
-    color: white;
-    padding: 7px 0;
-    background-color: transparent;
-    transition: border-color 0.2s;
-}
-
-input::placeholder {
-    color: transparent;
-}
-
-.form-label {
-    position: absolute;
-    top: 0;
+.form-input {
+    font-size: 1.2rem;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    border-radius: 0.2rem;
+    border: none;
+    width: 60%;
+    max-width: 600px;
     display: block;
-    transition: 0.2s;
-    color: gray;
+    transition: width 0.3s;
 }
 
-input:focus {
-    padding-bottom: 5px;
-    font-weight: 700;
-    border-width: 3px;
-    border-image: linear-gradient(45deg, red, blue);
+.form-input:focus {
+    outline: none;
+    width: 85%;
 }

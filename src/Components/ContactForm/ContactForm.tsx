@@ -1,18 +1,105 @@
 import './ContactForm.css'
 
-import { useState } from 'react'
+import { useState, SyntheticEvent } from 'react'
+import { send } from 'emailjs-com'
 
 import { TextInput } from '../TextInput/TextInput'
+import { Button } from '../Button/Button'
 
 export const ContactForm = function ContactForm(): JSX.Element {
     const [name, setName] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [subject, setSubject] = useState<string>('')
     const [message, setMessage] = useState<string>('')
+    const [errors, setErrors] = useState<string[]>([])
+    const validate = function validate(): boolean {
+        const errArray = []
+        if (name.length === 0) {
+            errArray.push('Imię za krótkie')
+            setErrors(errArray)
+            return false
+        }
+        if (
+            !email
+                .toLowerCase()
+                .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )
+        ) {
+            errArray.push('Niepoprawny adres E-mail')
+            setErrors(errArray)
+            return false
+        }
+        if (subject.length === 0 || subject.length > 150) {
+            errArray.push('Niepoprawna długość tematu')
+            setErrors(errArray)
+            return false
+        }
+        if (message.length === 0 || message.length > 500) {
+            errArray.push('Niepoprawna długość wiadomości')
+            setErrors(errArray)
+            return false
+        }
+        setErrors([])
+        return true
+    }
+    const submit = function submit(e: SyntheticEvent): void {
+        e.preventDefault()
+        const emailData = {
+            from_name: name,
+            to_name: 'Paweł',
+            message,
+            reply_to: email,
+        }
+        if (validate()) {
+            send(
+                'service_fzbjivq',
+                'template_n175c6n',
+                emailData,
+                'user_deIxmziedA21wtSLdHcCd'
+            )
+                .then(() => {
+                    alert('Wiadomość wysłana')
+                    setName('')
+                    setEmail('')
+                    setSubject('')
+                    setMessage('')
+                })
+                .catch((err) => console.log(err))
+        }
+    }
     return (
-        <div className="contact-form-wrapper">
-            <TextInput placeholder="name" />
-            <TextInput placeholder="email" />
-        </div>
+        <form className="contact-form-wrapper">
+            <TextInput
+                placeholder="Imię"
+                type="text"
+                set={(newVal) => setName(newVal)}
+                val={name}
+            />
+            <TextInput
+                placeholder="E-mail"
+                type="email"
+                set={(newVal) => setEmail(newVal)}
+                val={email}
+            />
+            <TextInput
+                placeholder="Temat"
+                type="text"
+                set={(newVal) => setSubject(newVal)}
+                val={subject}
+            />
+            <TextInput
+                placeholder="Wiadomość"
+                type="text"
+                set={(newVal) => setMessage(newVal)}
+                val={message}
+            />
+            <ul>
+                {errors.map((error) => (
+                    <li>{error}</li>
+                ))}
+            </ul>
+            <Button text="Wyślij" set={(e: SyntheticEvent) => submit(e)} />
+        </form>
     )
 }

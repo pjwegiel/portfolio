@@ -1,0 +1,19 @@
+button {
+    font-size: 1.2rem;
+    margin: 2em auto;
+    padding: 1rem 1.5rem;
+    border-radius: 0.2rem;
+    color: white;
+    border: none;
+    width: 60%;
+    max-width: 600px;
+    display: block;
+    background-color: hsl(301, 34%, 73%);
+    opacity: 0.6;
+    transition: 0.4s;
+}
+
+button:hover {
+    opacity: 1;
+    cursor: pointer;
+}

@@ -45,6 +45,7 @@ export const Logolist = function Logolist(): JSX.Element {
         <div className="logolistWrapper">
             {logos.map((logo) => (
                 <LogoListItem
+                    key={logo.name}
                     name={logo.name}
                     img={logo.img}
                     link={logo.link}
