@@ -6,6 +6,8 @@ import { send } from 'emailjs-com'
 import { TextInput } from '../TextInput/TextInput'
 import { Button } from '../Button/Button'
 
+import { authenticators } from '../consts'
+
 export const ContactForm = function ContactForm(): JSX.Element {
     const [name, setName] = useState<string>('')
     const [email, setEmail] = useState<string>('')
@@ -53,10 +55,10 @@ export const ContactForm = function ContactForm(): JSX.Element {
         }
         if (validate()) {
             send(
-                'service_fzbjivq',
-                'template_n175c6n',
+                authenticators.serviceId,
+                authenticators.templateId,
                 emailData,
-                'user_deIxmziedA21wtSLdHcCd'
+                authenticators.userId
             )
                 .then(() => {
                     alert('Wiadomość wysłana')
